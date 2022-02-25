@@ -1,0 +1,18 @@
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top: 45vh;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  height: 800px;
+  margin-bottom: 100px;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
