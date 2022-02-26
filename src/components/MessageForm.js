@@ -3,13 +3,11 @@ import { addDoc, collection } from 'firebase/firestore';
 
 import { Button } from 'react-bootstrap';
 
-function MessageForm({ db, user }) {
+function MessageForm({ db, user, scroll }) {
   const messageRef = useRef();
 
   async function sendMessage(e) {
     e.preventDefault();
-
-    console.log(user);
 
     await addDoc(collection(db, 'messages'), {
       createdAt: Date.now(),
@@ -17,6 +15,8 @@ function MessageForm({ db, user }) {
       displayName: user.displayName,
       photoURL: user.photoURL,
     });
+
+    scroll();
   }
 
   return (

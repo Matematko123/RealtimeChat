@@ -6,10 +6,10 @@
 
 .scrollable {
   overflow-y: scroll;
-  height: 800px;
+  height: 600px;
   margin-bottom: 100px;
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   overflow-y: scroll;
 }
 

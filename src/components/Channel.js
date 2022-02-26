@@ -1,14 +1,4 @@
-import { async } from '@firebase/util';
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  getFirestore,
-  limit,
-  onSnapshot,
-  orderBy,
-} from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
 import Message from './Message';
 import MessageForm from './MessageForm';
@@ -18,15 +8,22 @@ function Channel({ db, user }) {
   const bottomListRef = useRef();
 
   useEffect(() => {
+    scrollToBottom();
     const unsub = onSnapshot(collection(db, 'messages'), (collection) => {
       const data = [];
       collection.forEach((item) => {
         data.push(item.data());
       });
-      data.sort();
+      data.sort((i1, i2) => {
+        return i1.createdAt - i2.createdAt;
+      });
       setMessages(data);
     });
   }, [db]);
+
+  function scrollToBottom() {
+    bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
 
   return (
     <div className="text-center ">
@@ -49,7 +46,8 @@ function Channel({ db, user }) {
           );
         })}
       </ul>
-      <MessageForm db={db} user={user}></MessageForm>
+      <div ref={bottomListRef} />
+      <MessageForm db={db} user={user} scroll={scrollToBottom}></MessageForm>
     </div>
   );
 }
